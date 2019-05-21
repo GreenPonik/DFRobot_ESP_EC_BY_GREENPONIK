@@ -1,6 +1,6 @@
 /*
  * file DFRobot_ESP_EC_BY_GREENPONIK.ino
- * @ https://github.com/GreenPonik/DFROBOT_ESP_EC_BY_GREENPONIK
+ * @ https://github.com/GreenPonik/DFRobot_ESP_EC_BY_GREENPONIK
  *
  * This is the sample code for Gravity: Analog EC Sensor / Meter Kit V2, SKU:DFR300
  *  * In order to guarantee precision, a temperature sensor such as DS18B20 is needed, to execute automatic temperature compensation.
