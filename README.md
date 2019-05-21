@@ -2,7 +2,7 @@
 ---------------------------------------------------------
 
 ESP EC Reading and Calibration
-@ https://github.com/greenponik/DFRobot_ESP_EC_BY_GREENPONIK
+@ https://github.com/greenponik/DFROBOT_ESP_EC_BY_GREENPONIK
 
 >using Gravity: Analog ec Sensor / Meter Kit V2, SKU:DFR0300
 

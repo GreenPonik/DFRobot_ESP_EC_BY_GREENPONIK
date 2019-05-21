@@ -1,5 +1,5 @@
 /*
- * file DFRobot_ESP_EC.cpp * @ https://github.com/GreenPonik/DFRobot_ESP_EC_BY_GREENPONIK
+ * file DFRobot_ESP_EC.cpp * @ https://github.com/GreenPonik/DFROBOT_ESP_EC_BY_GREENPONIK
  *
  * Arduino library for Gravity: Analog EC Sensor / Meter Kit V2, SKU: DFR0300
  * 
