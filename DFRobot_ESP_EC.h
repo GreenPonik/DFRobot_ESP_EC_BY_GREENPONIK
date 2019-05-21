@@ -18,8 +18,8 @@
  * date  2019-05
  */
 
-#ifndef _DFRobot_ESP_EC_H_
-#define _DFRobot_ESP_EC_H_
+#ifndef _DFROBOT_ESP_EC_H_
+#define _DFROBOT_ESP_EC_H_
 
 #include "Arduino.h"
 
