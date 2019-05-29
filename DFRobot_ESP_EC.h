@@ -23,6 +23,7 @@
 
 #include "Arduino.h"
 
+#define KVALUEADDR 10 //the start address of the K value stored in the EEPROM
 #define ReceivedBufferLength 10 //length of the Serial CMD buffer
 
 class DFRobot_ESP_EC
@@ -33,7 +34,7 @@ public:
     void calibration(float voltage, float temperature, char *cmd); //calibration by Serial CMD
     void calibration(float voltage, float temperature);
     float readEC(float voltage, float temperature); // voltage to EC value, with temperature compensation
-    void begin();                                   //initialization
+    void begin(int EepromStartAddress = KVALUEADDR);                                   //initialization
 
 private:
     float _ecvalue;

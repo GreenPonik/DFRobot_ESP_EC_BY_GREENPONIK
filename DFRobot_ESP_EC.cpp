@@ -22,7 +22,6 @@
 #include "DFRobot_ESP_EC.h"
 #include "EEPROM.h"
 
-#define KVALUEADDR 0x0A //the start address of the K value stored in the EEPROM
 #define RES2 820.0
 #define ECREF 200.0
 
@@ -41,22 +40,22 @@ DFRobot_ESP_EC::~DFRobot_ESP_EC()
 {
 }
 
-void DFRobot_ESP_EC::begin()
+void DFRobot_ESP_EC::begin(int EepromStartAddress)
 {
     //check if calibration values (kvalueLow and kvalueHigh) are stored in eeprom
-    this->_kvalueLow = EEPROM.readFloat(KVALUEADDR); //read the calibrated K value from EEPROM
+    this->_kvalueLow = EEPROM.readFloat(EepromStartAddress); //read the calibrated K value from EEPROM
     if (this->_kvalueLow == float())
     {
         this->_kvalueLow = 1.0; // For new EEPROM, write default value( K = 1.0) to EEPROM
-        EEPROM.writeFloat(KVALUEADDR, this->_kvalueLow);
+        EEPROM.writeFloat(EepromStartAddress, this->_kvalueLow);
         EEPROM.commit();
     }
 
-    this->_kvalueHigh = EEPROM.readFloat(KVALUEADDR + sizeof(float)); //read the calibrated K value from EEPRM
+    this->_kvalueHigh = EEPROM.readFloat(EepromStartAddress + sizeof(float)); //read the calibrated K value from EEPRM
     if (this->_kvalueHigh == float())
     {
         this->_kvalueHigh = 1.0; // For new EEPROM, write default value( K = 1.0) to EEPROM
-        EEPROM.writeFloat(KVALUEADDR + sizeof(float), this->_kvalueHigh);
+        EEPROM.writeFloat(EepromStartAddress + sizeof(float), this->_kvalueHigh);
         EEPROM.commit();
     }
     this->_kvalue = this->_kvalueLow; // set default K value: K = kvalueLow
