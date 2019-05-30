@@ -59,6 +59,7 @@ void DFRobot_ESP_EC::begin(int EepromStartAddress)
         EEPROM.commit();
     }
     this->_kvalue = this->_kvalueLow; // set default K value: K = kvalueLow
+    this->_eepromStartAddress = EepromStartAddress;
 }
 
 float DFRobot_ESP_EC::readEC(float voltage, float temperature)
@@ -228,11 +229,11 @@ void DFRobot_ESP_EC::ecCalibration(byte mode)
             {
                 if ((this->_rawEC > 0.9) && (this->_rawEC < 1.9))
                 {
-                    EEPROM.writeFloat(KVALUEADDR, this->_kvalueLow);
+                    EEPROM.writeFloat(this->_eepromStartAddress, this->_kvalueLow);
                 }
                 else if ((this->_rawEC > 9) && (this->_rawEC < 16.8))
                 {
-                    EEPROM.writeFloat(KVALUEADDR + sizeof(float), this->_kvalueHigh);
+                    EEPROM.writeFloat(this->_eepromStartAddress + sizeof(float), this->_kvalueHigh);
                 }
                 Serial.print(F(">>>Calibration Successful"));
             }

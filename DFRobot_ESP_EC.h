@@ -49,6 +49,7 @@ private:
     byte _cmdReceivedBufferIndex;
 
 private:
+    int _eepromStartAddress;
     boolean cmdSerialDataAvailable();
     void    ecCalibration(byte mode); // calibration process, wirte key parameters to EEPROM
     byte cmdParse(const char *cmd);
