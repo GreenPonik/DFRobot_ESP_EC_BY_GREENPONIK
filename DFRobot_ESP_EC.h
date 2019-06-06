@@ -24,6 +24,11 @@
 #include "Arduino.h"
 
 #define KVALUEADDR 10 //the start address of the K value stored in the EEPROM
+#define RAWEC_1413_LOW 0.70
+#define RAWEC_1413_HIGH 1.9
+#define RAWEC_1288_LOW 9
+#define RAWEC_1288_HIGH 16.8
+
 #define ReceivedBufferLength 10 //length of the Serial CMD buffer
 
 class DFRobot_ESP_EC

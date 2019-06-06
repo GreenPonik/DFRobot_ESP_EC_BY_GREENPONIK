@@ -44,6 +44,8 @@ void DFRobot_ESP_EC::begin(int EepromStartAddress)
 {
     //check if calibration values (kvalueLow and kvalueHigh) are stored in eeprom
     this->_kvalueLow = EEPROM.readFloat(EepromStartAddress); //read the calibrated K value from EEPROM
+    Serial.print("stored kvalueLow: ");
+    Serial.println(this->_kvalueLow);
     if (this->_kvalueLow == float())
     {
         this->_kvalueLow = 1.0; // For new EEPROM, write default value( K = 1.0) to EEPROM
@@ -52,6 +54,8 @@ void DFRobot_ESP_EC::begin(int EepromStartAddress)
     }
 
     this->_kvalueHigh = EEPROM.readFloat(EepromStartAddress + sizeof(float)); //read the calibrated K value from EEPRM
+    Serial.print("stored kvalueHigh: ");
+    Serial.println(this->_kvalueHigh);
     if (this->_kvalueHigh == float())
     {
         this->_kvalueHigh = 1.0; // For new EEPROM, write default value( K = 1.0) to EEPROM
@@ -66,6 +70,8 @@ float DFRobot_ESP_EC::readEC(float voltage, float temperature)
 {
     float value = 0, valueTemp = 0;
     this->_rawEC = 1000 * voltage / RES2 / ECREF;
+    Serial.print("rawEC value: ");
+    Serial.println(this->_rawEC);
     valueTemp = this->_rawEC * this->_kvalue;
     //automatic shift process
     //First Range:(0,2); Second Range:(2,20)
@@ -182,11 +188,11 @@ void DFRobot_ESP_EC::ecCalibration(byte mode)
     case 2:
         if (enterCalibrationFlag)
         {
-            if ((this->_rawEC > 0.9) && (this->_rawEC < 1.9))
+            if ((this->_rawEC > RAWEC_1413_LOW) && (this->_rawEC < RAWEC_1413_HIGH))
             {                                                                          //recognize 1.413us/cm buffer solution
                 compECsolution = 1.413 * (1.0 + 0.0185 * (this->_temperature - 25.0)); //temperature compensation
             }
-            else if ((this->_rawEC > 9) && (this->_rawEC < 16.8))
+            else if ((this->_rawEC > RAWEC_1288_LOW) && (this->_rawEC < RAWEC_1288_HIGH))
             {                                                                          //recognize 12.88ms/cm buffer solution
                 compECsolution = 12.88 * (1.0 + 0.0185 * (this->_temperature - 25.0)); //temperature compensation
             }
@@ -202,11 +208,11 @@ void DFRobot_ESP_EC::ecCalibration(byte mode)
                 Serial.print(F(">>>Successful,K:"));
                 Serial.print(KValueTemp);
                 Serial.println(F(", Send EXITEC to Save and Exit<<<"));
-                if ((this->_rawEC > 0.9) && (this->_rawEC < 1.9))
+                if ((this->_rawEC > RAWEC_1413_LOW) && (this->_rawEC < RAWEC_1413_HIGH))
                 {
                     this->_kvalueLow = KValueTemp;
                 }
-                else if ((this->_rawEC > 9) && (this->_rawEC < 16.8))
+                else if ((this->_rawEC > RAWEC_1288_LOW) && (this->_rawEC < RAWEC_1288_HIGH))
                 {
                     this->_kvalueHigh = KValueTemp;
                 }
@@ -215,6 +221,10 @@ void DFRobot_ESP_EC::ecCalibration(byte mode)
             else
             {
                 Serial.println();
+                Serial.println(F(">>>KValueTemp out of range 0.5-1.5<<<"));
+                Serial.print(">>>KValueTemp: ");
+                Serial.print(KValueTemp, 4);
+                Serial.println("<<<");
                 Serial.println(F(">>>Failed,Try Again<<<"));
                 Serial.println();
                 ecCalibrationFinish = 0;
@@ -227,13 +237,15 @@ void DFRobot_ESP_EC::ecCalibration(byte mode)
             Serial.println();
             if (ecCalibrationFinish)
             {
-                if ((this->_rawEC > 0.9) && (this->_rawEC < 1.9))
+                if ((this->_rawEC > RAWEC_1413_LOW) && (this->_rawEC < RAWEC_1413_HIGH))
                 {
                     EEPROM.writeFloat(this->_eepromStartAddress, this->_kvalueLow);
+                    EEPROM.commit();
                 }
-                else if ((this->_rawEC > 9) && (this->_rawEC < 16.8))
+                else if ((this->_rawEC > RAWEC_1288_LOW) && (this->_rawEC < RAWEC_1288_HIGH))
                 {
                     EEPROM.writeFloat(this->_eepromStartAddress + sizeof(float), this->_kvalueHigh);
+                    EEPROM.commit();
                 }
                 Serial.print(F(">>>Calibration Successful"));
             }
