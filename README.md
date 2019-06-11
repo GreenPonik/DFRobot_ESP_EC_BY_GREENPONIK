@@ -28,12 +28,11 @@ pio run -t upload
 pio device monitor
 
 ## Example
-
 ```C++
-
 #include "Arduino.h"
 #include "Adafruit_ADS1015.h"
 #include "DFRobot_ESP_EC.h"
+#include "EEPROM.h"
 
 DFRobot_ESP_EC ec;
 Adafruit_ADS1115 ads;
@@ -43,7 +42,8 @@ float voltage, ecValue, temperature = 25;
 void setup()
 {
 	Serial.begin(115200);
-	ec.begin();
+	EEPROM.begin(32);//needed EEPROM.begin to store calibration k in eeprom
+	ec.begin();//by default lib store calibration k since 10 change it by set ec.begin(30); to start from 30
 	ads.setGain(GAIN_ONE);
 	ads.begin();
 }
@@ -53,11 +53,12 @@ void loop()
 	static unsigned long timepoint = millis();
 	if (millis() - timepoint > 1000U) //time interval: 1s
 	{
+
 		timepoint = millis();
-		voltage = ads.readADC_SingleEnded(0)/10;
+		voltage = ads.readADC_SingleEnded(0) / 10;
 		Serial.print("voltage:");
 		Serial.println(voltage, 4);
-		
+
 		//temperature = readTemperature();  // read your temperature sensor to execute temperature compensation
 		Serial.print("temperature:");
 		Serial.print(temperature, 1);
