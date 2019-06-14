@@ -76,8 +76,6 @@ float readTemperature()
 {
 	//add your code here to get the temperature from your temperature sensor
 }
-
-
 ```
 
 ## Compatibility
@@ -85,6 +83,7 @@ float readTemperature()
 MCU                | Work Well | Work Wrong | Untested  | Remarks
 ------------------ | :----------: | :----------: | :---------: | -----
 ESP32  |      √       |             |            | 
+ESP8266  |             |      √       |            | 
 
 ## Credits
 
