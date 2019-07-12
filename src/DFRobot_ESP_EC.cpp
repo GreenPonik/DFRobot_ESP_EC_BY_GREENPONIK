@@ -203,7 +203,7 @@ void DFRobot_ESP_EC::ecCalibration(byte mode)
                 ecCalibrationFinish = 0;
             }
             KValueTemp = RES2 * ECREF * compECsolution / 1000.0 / this->_voltage; //calibrate the k value
-            if ((KValueTemp > 0.5) && (KValueTemp < 1.5))
+            if ((KValueTemp > 0.5) && (KValueTemp < 2.0))
             {
                 Serial.println();
                 Serial.print(F(">>>Successful,K:"));
@@ -228,7 +228,7 @@ void DFRobot_ESP_EC::ecCalibration(byte mode)
             else
             {
                 Serial.println();
-                Serial.println(F(">>>KValueTemp out of range 0.5-1.5<<<"));
+                Serial.println(F(">>>KValueTemp out of range 0.5-2.0<<<"));
                 Serial.print(">>>KValueTemp: ");
                 Serial.print(KValueTemp, 4);
                 Serial.println("<<<");
