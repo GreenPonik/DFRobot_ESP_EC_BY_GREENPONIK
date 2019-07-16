@@ -26,7 +26,7 @@
 #define KVALUEADDR 10 //the start address of the K value stored in the EEPROM
 #define RAWEC_1413_LOW 0.70
 #define RAWEC_1413_HIGH 1.45
-#define RAWEC_276_LOW 1.65
+#define RAWEC_276_LOW 1.85
 #define RAWEC_276_HIGH 3.2
 #define RAWEC_1288_LOW 9
 #define RAWEC_1288_HIGH 16.8
