@@ -188,21 +188,44 @@ void DFRobot_ESP_EC::ecCalibration(byte mode)
             if ((this->_rawEC > RAWEC_1413_LOW) && (this->_rawEC < RAWEC_1413_HIGH))
             {                                                                          //recognize 1.413us/cm buffer solution
                 compECsolution = 1.413 * (1.0 + 0.0185 * (this->_temperature - 25.0)); //temperature compensation
+                Serial.print(F(">>>compECsolution: "));
+                Serial.print(compECsolution);
+                Serial.println(F("<<<"));
             }
             else if ((this->_rawEC > RAWEC_276_LOW) && (this->_rawEC < RAWEC_276_HIGH))
             {                                                                         //recognize 2.76ms/cm buffer solution
                 compECsolution = 2.76 * (1.0 + 0.0185 * (this->_temperature - 25.0)); //temperature compensation
+                Serial.print(F(">>>compECsolution: "));
+                Serial.print(compECsolution);
+                Serial.println(F("<<<"));
             }
             else if ((this->_rawEC > RAWEC_1288_LOW) && (this->_rawEC < RAWEC_1288_HIGH))
             {                                                                          //recognize 12.88ms/cm buffer solution
                 compECsolution = 12.88 * (1.0 + 0.0185 * (this->_temperature - 25.0)); //temperature compensation
+                Serial.print(F(">>>compECsolution: "));
+                Serial.print(compECsolution);
+                Serial.println(F("<<<"));
             }
             else
             {
                 Serial.print(F(">>>Buffer Solution Error Try Again<<<   "));
                 ecCalibrationFinish = 0;
             }
+            Serial.println();
+            Serial.print(F(">>>KValueTemp calculation: "));
+            Serial.print(RES2);
+            Serial.print(F(" * "));
+            Serial.print(ECREF);
+            Serial.print(F(" * "));
+            Serial.print(compECsolution);
+            Serial.print(F(" / 1000.0 / "));
+            Serial.print(this->_voltage);
+            Serial.println(F("<<<"));
             KValueTemp = RES2 * ECREF * compECsolution / 1000.0 / this->_voltage; //calibrate the k value
+            Serial.println();
+            Serial.print(F(">>>KValueTemp: "));
+            Serial.print(KValueTemp);
+            Serial.println(F("<<<"));
             if ((KValueTemp > 0.5) && (KValueTemp < 2.0))
             {
                 Serial.println();
