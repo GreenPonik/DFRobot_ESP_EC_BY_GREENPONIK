@@ -28,7 +28,7 @@
 #define RAWEC_1413_HIGH 1.80
 #define RAWEC_276_LOW 1.95
 #define RAWEC_276_HIGH 3.2
-#define RAWEC_1288_LOW 9
+#define RAWEC_1288_LOW 8.5
 #define RAWEC_1288_HIGH 16.8
 
 #define ReceivedBufferLength 10 //length of the Serial CMD buffer
