@@ -295,7 +295,7 @@ void DFRobot_ESP_EC::ecCalibration(byte mode)
                     EEPROM.writeFloat(this->_eepromStartAddress + (int)sizeof(float), this->_kvalueHigh);
                     EEPROM.commit();
                 }
-                Serial.print(F(">>>Calibration Successful<<<"));
+                Serial.print(F(">>>Calibration Successful"));
             }
             else
             {
