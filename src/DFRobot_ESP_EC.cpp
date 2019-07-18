@@ -218,6 +218,16 @@ void DFRobot_ESP_EC::ecCalibration(byte mode)
                 ecCalibrationFinish = 0;
             }
             Serial.println();
+            Serial.print(F(">>>KValueTemp calculation formule: "));
+            Serial.print(F("RES2"));
+            Serial.print(F(" * "));
+            Serial.print(F("ECREF"));
+            Serial.print(F(" * "));
+            Serial.print(F("compECsolution"));
+            Serial.print(F(" / 1000.0 / "));
+            Serial.print(F("voltage"));
+            Serial.println(F("<<<"));
+            Serial.println();
             Serial.print(F(">>>KValueTemp calculation: "));
             Serial.print(RES2);
             Serial.print(F(" * "));
@@ -243,21 +253,21 @@ void DFRobot_ESP_EC::ecCalibration(byte mode)
                     this->_kvalueLow = KValueTemp;
                     Serial.print(">>>kvalueHigh: ");
                     Serial.print(this->_kvalueLow);
-                    Serial.println(F("<<<"))
+                    Serial.println(F("<<<"));
                 }
                 else if ((this->_rawEC > RAWEC_276_LOW) && (this->_rawEC < RAWEC_276_HIGH))
                 {
                     this->_kvalueHigh = KValueTemp;
                     Serial.print(">>>kvalueHigh: ");
                     Serial.print(this->_kvalueHigh);
-                    Serial.println(F("<<<"))
+                    Serial.println(F("<<<"));
                 }
                 else if ((this->_rawEC > RAWEC_1288_LOW) && (this->_rawEC < RAWEC_1288_HIGH))
                 {
                     this->_kvalueHigh = KValueTemp;
                     Serial.print(">>>kvalueHigh: ");
                     Serial.print(this->_kvalueHigh);
-                    Serial.println(F("<<<"))
+                    Serial.println(F("<<<"));
                 }
                 ecCalibrationFinish = 1;
             }
