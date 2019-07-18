@@ -227,7 +227,6 @@ void DFRobot_ESP_EC::ecCalibration(byte mode)
             Serial.print(F(" / 1000.0 / "));
             Serial.print(F("voltage"));
             Serial.println(F("<<<"));
-            Serial.println();
             Serial.print(F(">>>KValueTemp calculation: "));
             Serial.print(RES2);
             Serial.print(F(" * "));
