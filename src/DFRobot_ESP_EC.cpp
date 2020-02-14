@@ -45,7 +45,7 @@ void DFRobot_ESP_EC::begin(int EepromStartAddress)
     this->_eepromStartAddress = EepromStartAddress;
     //check if calibration values (kvalueLow and kvalueHigh) are stored in eeprom
     this->_kvalueLow = EEPROM.readFloat(this->_eepromStartAddress); //read the calibrated K value from EEPROM
-    if (this->_kvalueLow == float() || isnan(this->_kvalueLow))
+    if (this->_kvalueLow == float() || isnan(this->_kvalueLow) || isinf(this->_kvalueLow))
     {
         this->_kvalueLow = 1.0; // For new EEPROM, write default value( K = 1.0) to EEPROM
         EEPROM.writeFloat(this->_eepromStartAddress, this->_kvalueLow);
@@ -53,7 +53,7 @@ void DFRobot_ESP_EC::begin(int EepromStartAddress)
     }
 
     this->_kvalueHigh = EEPROM.readFloat(this->_eepromStartAddress + (int)sizeof(float)); //read the calibrated K value from EEPROM
-    if (this->_kvalueHigh == float() || isnan(this->_kvalueHigh))
+    if (this->_kvalueHigh == float() || isnan(this->_kvalueHigh) || isinf(this->_kvalueHigh))
     {
         this->_kvalueHigh = 1.0; // For new EEPROM, write default value( K = 1.0) to EEPROM
         EEPROM.writeFloat(this->_eepromStartAddress + (int)sizeof(float), this->_kvalueHigh);
